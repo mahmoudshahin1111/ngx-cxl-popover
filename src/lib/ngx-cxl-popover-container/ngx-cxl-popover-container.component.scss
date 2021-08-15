@@ -1,0 +1,20 @@
+.ngx-cxl-popover-container {
+  position: absolute;
+  width: 400px;
+  height: 500px;
+  overflow: hidden;
+  z-index: 10000;
+  display: grid;
+  grid-template-rows: 0.2fr 0.8fr;
+  border-radius: 8px;
+  box-shadow: 0px 0px 5px 5px rgba(230, 230, 230, 0.363);
+  .ngx-cxl-popover-title {
+    position: relative;
+    padding: 4px 8px;
+  }
+  .ngx-cxl-popover-content {
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding: 4px 8px;
+  }
+}

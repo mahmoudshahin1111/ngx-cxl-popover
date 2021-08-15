@@ -1,14 +1,20 @@
-<ng-container *ngIf="titleTemplate else defaultTitleTemplate">
-    <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+<div class="ngx-cxl-popover-container">
+    <div class="ngx-cxl-popover-title">
+        <ng-container *ngIf="titleTemplate else defaultTitleTemplate">
+            <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
 
-</ng-container>
-<ng-template #defaultTitleTemplate>
-    {{title}}
-</ng-template>
+        </ng-container>
+        <ng-template #defaultTitleTemplate>
+            {{title}}
+        </ng-template>
 
-<ng-container *ngIf="contentTemplate else defaultContentTemplate">
-    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-</ng-container>
-<ng-template #defaultContentTemplate>
-    {{content}}
-</ng-template>
+    </div>
+    <div class="ngx-cxl-popover-content">
+        <ng-container *ngIf="contentTemplate else defaultContentTemplate">
+            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+        </ng-container>
+        <ng-template #defaultContentTemplate>
+            {{content}}
+        </ng-template>
+    </div>
+</div>
