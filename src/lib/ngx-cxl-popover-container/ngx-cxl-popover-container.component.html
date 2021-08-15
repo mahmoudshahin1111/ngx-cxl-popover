@@ -1,0 +1,14 @@
+<ng-container *ngIf="titleTemplate else defaultTitleTemplate">
+    <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+
+</ng-container>
+<ng-template #defaultTitleTemplate>
+    {{title}}
+</ng-template>
+
+<ng-container *ngIf="contentTemplate else defaultContentTemplate">
+    <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+</ng-container>
+<ng-template #defaultContentTemplate>
+    {{content}}
+</ng-template>
