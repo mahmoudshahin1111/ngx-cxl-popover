@@ -1,7 +1,7 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, HostBinding, OnInit, TemplateRef } from '@angular/core';
 
 @Component({
-  selector: 'lib-ngx-cxl-popover-container',
+  selector: 'ngx-cxl-popover-container',
   templateUrl: './ngx-cxl-popover-container.component.html',
   styleUrls: ['./ngx-cxl-popover-container.component.scss']
 })
@@ -19,5 +19,6 @@ export class NgxCxlPopoverContainerComponent implements OnInit {
 
   ngOnInit(): void {
   }
+
 
 }

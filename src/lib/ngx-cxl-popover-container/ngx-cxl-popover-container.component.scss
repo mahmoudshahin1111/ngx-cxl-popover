@@ -1,9 +1,9 @@
 .ngx-cxl-popover-container {
-  position: absolute;
+  background-color: white;
+  position: relative;
   width: 400px;
   height: 500px;
   overflow: hidden;
-  z-index: 10000;
   display: grid;
   grid-template-rows: 0.2fr 0.8fr;
   border-radius: 8px;
