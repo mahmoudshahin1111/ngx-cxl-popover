@@ -1,4 +1,4 @@
-import { Component, HostBinding, OnInit, TemplateRef } from '@angular/core';
+import { Component, ElementRef, HostBinding, OnInit, TemplateRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'ngx-cxl-popover-container',
@@ -10,15 +10,31 @@ export class NgxCxlPopoverContainerComponent implements OnInit {
   public content:string;
   public titleTemplate:TemplateRef<any> | null;
   public contentTemplate:TemplateRef<any> | null;
+  public width:number;
+  public height:number;
+  @ViewChild('contentTemp',{static:true}) contentTempRef:ElementRef|null;
   constructor() {
     this.titleTemplate = null;
     this.contentTemplate = null;
     this.title = '';
     this.content = '';
+    this.contentTempRef = null;
+    this.width = 200;
+    this.height = 200;
    }
 
   ngOnInit(): void {
+  
   }
-
-
+  scroll(scrollOptions:ScrollToOptions){
+    if(!this.contentTempRef) return;
+    const element = this.contentTempRef.nativeElement as HTMLElement;
+    element.scrollBy(scrollOptions);
+  }
+  getCustomizedStyle(){
+    return {
+      width:`${this.width}px`,
+      height:`${this.height}px`
+    }
+  }
 }

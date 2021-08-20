@@ -25,11 +25,13 @@ export class NgxCxlPopoverDirective implements OnInit {
   private _popoverComponentFactory: ComponentFactory<NgxCxlPopoverContainerComponent>;
   private _popoverComponentRef: ComponentRef<NgxCxlPopoverContainerComponent> | null;
   private _additionalDistance: number;
+  private _isHidden:boolean;
   constructor(
     private elementRef: ElementRef,
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
+    this._isHidden = false;
     this._additionalDistance = 20;
     this.placementDirection = PlacementDirectionsEnum.right;
     this.titleTemplate = null;
@@ -43,14 +45,27 @@ export class NgxCxlPopoverDirective implements OnInit {
       );
   }
   ngOnInit(): void {}
+  // @HostListener('window:scroll', ['$event'])
+  // handleWindowScroll(e: Event) {
+  //   if(!this._popoverComponentRef || this._isHidden) return;
+  //   e.preventDefault();
+  // }
+  @HostListener('wheel', ['$event'])
+  handleScroll(e: WheelEvent) {
+    if(!this._popoverComponentRef || this._isHidden) return;
+    this._popoverComponentRef.instance.scroll({behavior:'auto',top:e.deltaY/10});
+  }
   @HostListener('mouseenter', ['$event'])
   handleOnMouseEnter(e: MouseEvent) {
-    this.showPopover(e.offsetX, e.offsetY);
-    console.log('mouse entered');
+    document.body.style.overflowY = 'hidden';
+    this._isHidden = false;
+    this.showPopover(e.clientX, e.clientY);
+
   }
   @HostListener('mouseleave', ['$event'])
   handleOnMouseLeave(e: MouseEvent) {
-    console.log(e.offsetX, e.offsetY);
+    document.body.style.overflowY = 'unset';
+    this._isHidden = true;
     this.hidePopover();
     console.log('mouse leaved');
   }
@@ -66,23 +81,23 @@ export class NgxCxlPopoverDirective implements OnInit {
     const nativeElement: HTMLElement =
       this._popoverComponentRef.location.nativeElement;
     nativeElement.style.position = 'fixed';
-    nativeElement.style.zIndex = '10000';
+    nativeElement.style.zIndex = '1000';
 
     const parentNativeElement: HTMLElement = this.elementRef.nativeElement;
     if (this.isCanBeOnTheRight(mouseX)) {
       nativeElement.style.left = `${mouseX + this._additionalDistance}px`;
     } else if (this.isCanBeOnTheLeft(mouseX)) {
+      const offsetRight = nativeElement.offsetLeft - nativeElement.offsetWidth;
       nativeElement.style.left = `${
-        nativeElement.offsetLeft -
-        nativeElement.offsetWidth +
-        mouseX -
-        this._additionalDistance
+        offsetRight + mouseX - this._additionalDistance
       }px`;
     } else {
       nativeElement.style.left = `${mouseX + this._additionalDistance}px`;
     }
+
     if (this.isCanBeOnTheTop(mouseY)) {
-      nativeElement.style.bottom = `${mouseY + this._additionalDistance}px`;
+      nativeElement.style.top = `${mouseY - nativeElement.offsetHeight - this._additionalDistance}px`;
+      console.log(nativeElement.style.bottom);
     } else if (this.isCanBeOnTheBottom(mouseY)) {
       nativeElement.style.top = `${mouseY + this._additionalDistance}px`;
     } else {
@@ -98,16 +113,17 @@ export class NgxCxlPopoverDirective implements OnInit {
     if (!this._popoverComponentRef) return;
     const nativeElement: HTMLElement =
       this._popoverComponentRef.location.nativeElement;
-    const availableDistance = document.body.clientWidth - mouseX;
-    return (
-      availableDistance >= nativeElement.offsetWidth + this._additionalDistance
-    );
+    const availableDistance = window.screen.availWidth - mouseX;
+    const elementWidth = nativeElement.offsetWidth + this._additionalDistance;
+    return availableDistance >= elementWidth;
   }
   private isCanBeOnTheLeft(mouseX: number) {
     if (!this._popoverComponentRef) return;
     const nativeElement: HTMLElement =
       this._popoverComponentRef.location.nativeElement;
-    return mouseX >= nativeElement.offsetWidth + this._additionalDistance;
+    const elementWidth = nativeElement.offsetWidth + this._additionalDistance;
+    const availableDistance = mouseX;
+    return availableDistance >= elementWidth;
   }
   private isCanBeOnTheTop(mouseY: number) {
     if (!this._popoverComponentRef) return;
@@ -122,7 +138,7 @@ export class NgxCxlPopoverDirective implements OnInit {
     if (!this._popoverComponentRef) return;
     const nativeElement: HTMLElement =
       this._popoverComponentRef.location.nativeElement;
-    const availableDistance = document.body.clientHeight - mouseY;
+    const availableDistance = window.screen.availHeight - mouseY;
     return (
       availableDistance >= nativeElement.offsetHeight + this._additionalDistance
     );

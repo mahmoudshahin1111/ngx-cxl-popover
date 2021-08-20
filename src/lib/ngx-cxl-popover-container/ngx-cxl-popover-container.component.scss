@@ -1,8 +1,8 @@
 .ngx-cxl-popover-container {
   background-color: white;
-  position: relative;
-  width: 400px;
-  height: 500px;
+  min-width: 250px;
+  max-width: 250px;
+  height: 200px;
   overflow: hidden;
   display: grid;
   grid-template-rows: 0.2fr 0.8fr;
