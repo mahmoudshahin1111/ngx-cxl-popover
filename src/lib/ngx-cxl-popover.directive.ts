@@ -10,7 +10,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
-import { PlacementDirectionsEnum } from './api/placement-direction-enum';
+
 import { NgxCxlPopoverContainerComponent } from './ngx-cxl-popover-container/ngx-cxl-popover-container.component';
 
 @Directive({
@@ -25,11 +25,12 @@ export class NgxCxlPopoverDirective implements OnInit {
   @Input() popoverContent: string;
   @Input() titleTemplate: TemplateRef<any> | null;
   @Input() contentTemplate: TemplateRef<any> | null;
-  @Input() placementDirection: PlacementDirectionsEnum;
+  @Input() placementHorizontal: 'right' | 'left' | null;
+  @Input() placementVertical: 'top' | 'bottom' | null;
   private _popoverComponentFactory: ComponentFactory<NgxCxlPopoverContainerComponent>;
   private _popoverComponentRef: ComponentRef<NgxCxlPopoverContainerComponent> | null;
   private _additionalDistance: number;
-  private _isHidden: boolean;
+  private _isPopupCreated: boolean;
   private _documentBodyOverflowY: string;
   constructor(
     private elementRef: ElementRef,
@@ -41,9 +42,10 @@ export class NgxCxlPopoverDirective implements OnInit {
     this._documentBodyOverflowY = document.body.style.overflowY;
     this.width = null;
     this.height = null;
-    this._isHidden = false;
+    this._isPopupCreated = false;
     this._additionalDistance = 20;
-    this.placementDirection = PlacementDirectionsEnum.right;
+    this.placementHorizontal = null;
+    this.placementVertical = null;
     this.titleTemplate = null;
     this.contentTemplate = null;
     this.popoverTitle = '';
@@ -57,7 +59,11 @@ export class NgxCxlPopoverDirective implements OnInit {
   ngOnInit(): void {}
   @HostListener('wheel', ['$event'])
   handleScroll(e: WheelEvent) {
-    if (!this._popoverComponentRef || this._isHidden || !this.enableScroll)
+    if (
+      !this._popoverComponentRef ||
+      !this._isPopupCreated ||
+      !this.enableScroll
+    )
       return;
     const DeltaY = e.deltaY * (this.scrollSpeed / 100);
     this._popoverComponentRef.instance.scroll({
@@ -65,40 +71,45 @@ export class NgxCxlPopoverDirective implements OnInit {
       top: DeltaY,
     });
   }
+  @HostListener('mousemove', ['$event'])
+  handleOnMouseMoving(e: MouseEvent) {
+    this.updatePosition(e.clientX, e.clientY);
+  }
   @HostListener('mouseenter', ['$event'])
   handleOnMouseEnter(e: MouseEvent) {
-    this._isHidden = false;
-    this.showPopover(e.clientX, e.clientY);
+    if (this._isPopupCreated) return;
+    this.createPopup(e.clientX, e.clientY);
+    this.updatePosition(e.clientX, e.clientY);
     if (this.enableScroll) {
       this.disableBodyScroll();
     }
   }
   @HostListener('mouseleave', ['$event'])
   handleOnMouseLeave(e: MouseEvent) {
-    this._isHidden = true;
-    this.hidePopover();
+    if (!this._isPopupCreated) return;
+    this.destroyPopup();
     if (this.enableScroll) {
       this.enableBodyScroll();
     }
   }
-  private showPopover(mouseX: number, mouseY: number) {
-    this.createComponent();
-    this.setFixedPositionOnPopover();
-    if (this.isCanBeOnTheRight(mouseX)) {
+  private updatePosition(mouseX: number, mouseY: number) {
+    if (
+      this.isCanBeOnTheRight(mouseX) ||
+      this.placementHorizontal === 'right'
+    ) {
       this.displayOnTheRight(mouseX);
-    } else if (this.isCanBeOnTheLeft(mouseX)) {
-      this.displayOnTheLeft(mouseX);
     } else {
-      this.isCanBeOnTheRight(mouseX);
+      this.displayOnTheLeft(mouseX);
     }
 
-    if (this.isCanBeOnTheTop(mouseY)) {
+    if (this.isCanBeOnTheTop(mouseY) || this.placementVertical === 'top') {
       this.displayOnTheTop(mouseY);
-    } else if (this.isCanBeOnTheBottom(mouseY)) {
-      this.displayOnTheBottom(mouseY);
-    } else {
-      this.displayOnTheBottom(mouseY);
     }
+  }
+  private createPopup(mouseX: number, mouseY: number) {
+    this.createComponent();
+    this.setFixedPositionOnPopover();
+    this._isPopupCreated = true;
   }
   private createComponent() {
     this._popoverComponentRef =
@@ -115,16 +126,14 @@ export class NgxCxlPopoverDirective implements OnInit {
     const nativeElement: HTMLElement =
       this._popoverComponentRef.location.nativeElement;
     nativeElement.style.position = 'fixed';
-    nativeElement.style.zIndex = '1000';
+    nativeElement.style.zIndex = '10000';
   }
   private displayOnTheLeft(startX: number) {
     if (!this._popoverComponentRef) return;
     const nativeElement: HTMLElement =
       this._popoverComponentRef.location.nativeElement;
-    const offsetRight = nativeElement.offsetLeft - nativeElement.offsetWidth;
-    nativeElement.style.left = `${
-      offsetRight + startX - this._additionalDistance
-    }px`;
+    const offsetRight = startX - nativeElement.offsetWidth;
+    nativeElement.style.left = `${offsetRight + this._additionalDistance}px`;
   }
   private displayOnTheRight(startX: number) {
     if (!this._popoverComponentRef) return;
@@ -140,11 +149,7 @@ export class NgxCxlPopoverDirective implements OnInit {
       startX - nativeElement.offsetHeight - this._additionalDistance
     }px`;
   }
-  private displayOnTheBottom(startX: number) {
-    if (!this._popoverComponentRef) return;
-    const nativeElement: HTMLElement =
-      this._popoverComponentRef.location.nativeElement;
-  }
+
   private disableBodyScroll() {
     document.body.style.overflowY = 'hidden';
   }
@@ -152,9 +157,11 @@ export class NgxCxlPopoverDirective implements OnInit {
     document.body.style.overflowY = this._documentBodyOverflowY;
   }
 
-  private hidePopover() {
-    this._popoverComponentRef?.destroy();
+  private destroyPopup() {
+    if (!this._popoverComponentRef) return;
+    this._popoverComponentRef.destroy();
     this._popoverComponentRef = null;
+    this._isPopupCreated = false;
   }
   private isCanBeOnTheRight(mouseX: number) {
     if (!this._popoverComponentRef) return;
@@ -164,28 +171,12 @@ export class NgxCxlPopoverDirective implements OnInit {
     const elementWidth = nativeElement.offsetWidth + this._additionalDistance;
     return availableDistance >= elementWidth;
   }
-  private isCanBeOnTheLeft(mouseX: number) {
-    if (!this._popoverComponentRef) return;
-    const nativeElement: HTMLElement =
-      this._popoverComponentRef.location.nativeElement;
-    const elementWidth = nativeElement.offsetWidth + this._additionalDistance;
-    const availableDistance = mouseX;
-    return availableDistance >= elementWidth;
-  }
+
   private isCanBeOnTheTop(mouseY: number) {
     if (!this._popoverComponentRef) return;
     const nativeElement: HTMLElement =
       this._popoverComponentRef.location.nativeElement;
     const availableDistance = mouseY;
-    return (
-      availableDistance >= nativeElement.offsetHeight + this._additionalDistance
-    );
-  }
-  private isCanBeOnTheBottom(mouseY: number) {
-    if (!this._popoverComponentRef) return;
-    const nativeElement: HTMLElement =
-      this._popoverComponentRef.location.nativeElement;
-    const availableDistance = window.screen.availHeight - mouseY;
     return (
       availableDistance >= nativeElement.offsetHeight + this._additionalDistance
     );
