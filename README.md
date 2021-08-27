@@ -38,18 +38,19 @@ if you want use customized templates for the title and content then let's go to 
   [contentTemplate]="contentTemplate"
 >
   Hello
-  <!-- Custom Templates -->
-  <ng-template #titleTemplate>
-    <img src="..." alt="..." />
-    <p>...</p>
-  </ng-template>
-
-  <ng-template #contentTemplate>
-    <img src="..." alt="..." />
-    <p>...</p>
-  </ng-template>
-  <!--  -->
 </h1>
+
+<!-- Custom Templates -->
+<ng-template #titleTemplate>
+  <img src="..." alt="..." />
+  <p>...</p>
+</ng-template>
+
+<ng-template #contentTemplate>
+  <img src="..." alt="..." />
+  <p>...</p>
+</ng-template>
+<!--  -->
 ```
 
 ## Options
@@ -59,10 +60,12 @@ if you want use customized templates for the title and content then let's go to 
 |`scrollSpeed` | number | the speed of scrolling between 10 and 100 | 10|
 |`width` | number | set popover fixed width | 200px|
 |`height` | number | set popover fixed height | 300px|
-|`popoverTitle` | string | the name of the custom title template inside the element | null|
-|`contentTemplate` | string | the name of the custom content template inside the element | null|
-|`placementHorizontal` | number | force popover to show in spacific direction and has options 'right' | 'left' | null | null|
-|`placementVertical` | number | force popover to show in spacific direction and has options 'top' | 'bottom' | null; | null|
+|`popoverTitle` | string | write the title phase | null|
+|`popoverContent` | string | write the content phase | null|
+|`titleTemplate` | TemplateRef | reference to the custom title template | null|
+|`contentTemplate` | TemplateRef | reference to the custom content template | null|
+|`placementHorizontal` | number | force popover to show in specific direction and has options 'right' | 'left' | null | null|
+|`placementVertical` | number | force popover to show in specific direction and has options 'top' | 'bottom' | null; | null|
 
 ## Customize Style
 
