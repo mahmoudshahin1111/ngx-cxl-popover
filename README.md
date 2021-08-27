@@ -55,17 +55,17 @@ if you want use customized templates for the title and content then let's go to 
 
 ## Options
 
-|Attribute | Type | Description | Default|
-|`enableScroll` | boolean | enable scrolling into popover content | `true`|
-|`scrollSpeed` | number | the speed of scrolling between 10 and 100 | 10|
-|`width` | number | set popover fixed width | 200px|
-|`height` | number | set popover fixed height | 300px|
-|`popoverTitle` | string | write the title phase | null|
-|`popoverContent` | string | write the content phase | null|
-|`titleTemplate` | TemplateRef | reference to the custom title template | null|
-|`contentTemplate` | TemplateRef | reference to the custom content template | null|
-|`placementHorizontal` | number | force popover to show in specific direction and has options 'right' | 'left' | null | null|
-|`placementVertical` | number | force popover to show in specific direction and has options 'top' | 'bottom' | null; | null|
+| Attribute | Type | Description | Default |
+| `enableScroll` | boolean | enable scrolling into popover content | `true` |
+| `scrollSpeed` | number | the speed of scrolling between 10 and 100 | 10 |
+| `width` | number | set popover fixed width | 200px |
+| `height` | number | set popover fixed height | 300px |
+| `popoverTitle` | string | write the title phase | null |
+| `popoverContent` | string | write the content phase | null |
+| `titleTemplate` | TemplateRef | reference to the custom title template | null |
+| `contentTemplate` | TemplateRef | reference to the custom content template | null |
+| `placementHorizontal` | number | force popover to show in specific direction and has options 'right' | 'left' | null | null |
+| `placementVertical` | number | force popover to show in specific direction and has options 'top' | 'bottom' | null; | null |
 
 ## Customize Style
 
