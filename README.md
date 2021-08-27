@@ -38,17 +38,18 @@ if you want use customized templates for the title and content then let's go to 
   [contentTemplate]="contentTemplate"
 >
   Hello
+  <!-- Custom Templates -->
+  <ng-template #titleTemplate>
+    <img src="..." alt="..." />
+    <p>...</p>
+  </ng-template>
+
+  <ng-template #contentTemplate>
+    <img src="..." alt="..." />
+    <p>...</p>
+  </ng-template>
+  <!--  -->
 </h1>
-
-<ng-template #titleTemplate>
-  <img src="..." alt="..." />
-  <p>...</p>
-</ng-template>
-
-<ng-template #contentTemplate>
-  <img src="..." alt="..." />
-  <p>...</p>
-</ng-template>
 ```
 
 ## Options
