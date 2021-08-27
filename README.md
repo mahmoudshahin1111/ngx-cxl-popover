@@ -56,7 +56,7 @@ if you want use customized templates for the title and content then let's go to 
 ## Options
 
 | Attribute | Type | Description | Default |
-| ----------------------|:-------------:| |:--------------------------------------------------:| -------:|
+| ---------------------- | -------------:| --------------------------------------------------:| -------:|
 | `enableScroll` | boolean | enable scrolling into popover content | `true` |
 | `scrollSpeed` | number | the speed of scrolling between 10 and 100 | 10 |
 | `width` | number | set popover fixed width | 200px |
