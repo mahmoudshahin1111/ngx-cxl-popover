@@ -65,8 +65,8 @@ if you want use customized templates for the title and content then let's go to 
 | `popoverContent` | string | write the content phase | null |
 | `titleTemplate` | TemplateRef | reference to the custom title template | null |
 | `contentTemplate` | TemplateRef | reference to the custom content template | null |
-| `placementHorizontal` | number | force popover to show in specific direction and has options 'right' | 'left' | null | null |
-| `placementVertical` | number | force popover to show in specific direction and has options 'top' | 'bottom' | null; | null |
+| `placementHorizontal` | number | force popover to show in specific direction and has options 'right' , 'left' , null | null |
+| `placementVertical` | number | force popover to show in specific direction and has options 'top' , 'bottom' , null; | null |
 
 ## Customize Style
 
