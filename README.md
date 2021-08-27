@@ -53,15 +53,15 @@ if you want use customized templates for the title and content then let's go to 
 
 ## Options
 
-Attribute | Type | Description | Default
-`enableScroll` | boolean | enable scrolling into popover content | `true`
-`scrollSpeed` | number | the speed of scrolling between 10 and 100 | 10
-`width` | number | set popover fixed width | 200px
-`height` | number | set popover fixed height | 300px
-`popoverTitle` | string | the name of the custom title template inside the element | null
-`contentTemplate` | string | the name of the custom content template inside the element | null
-`placementHorizontal` | number | force popover to show in spacific direction and has options 'right' | 'left' | null | null
-`placementVertical` | number | force popover to show in spacific direction and has options 'top' | 'bottom' | null; | null
+|Attribute | Type | Description | Default|
+|`enableScroll` | boolean | enable scrolling into popover content | `true`|
+|`scrollSpeed` | number | the speed of scrolling between 10 and 100 | 10|
+|`width` | number | set popover fixed width | 200px|
+|`height` | number | set popover fixed height | 300px|
+|`popoverTitle` | string | the name of the custom title template inside the element | null|
+|`contentTemplate` | string | the name of the custom content template inside the element | null|
+|`placementHorizontal` | number | force popover to show in spacific direction and has options 'right' | 'left' | null | null|
+|`placementVertical` | number | force popover to show in spacific direction and has options 'top' | 'bottom' | null; | null|
 
 ## Customize Style
 
