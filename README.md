@@ -29,7 +29,6 @@ if you want use customized templates for the title and content then let's go to 
 
 ## Custom Templates
 
-
 ```html
 <h1
   NgxCxlPopover
@@ -67,7 +66,12 @@ Attribute | Type | Description | Default
 ## Customize Style
 
 ```css
-
+.ngx-cxl-popover-container {
+}
+.ngx-cxl-popover-container .ngx-cxl-popover-title {
+}
+.ngx-cxl-popover-container .ngx-cxl-popover-content {
+}
 ```
 
 Simplest and Easiest 👌💖👏
