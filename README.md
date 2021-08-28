@@ -1,7 +1,7 @@
 # NgxCxlPopover
 
-<!--
-[![npm version](https://badge.fury.io/js/tape-slider.svg)](https://badge.fury.io/js/tape-slider) -->
+
+[![npm version](https://badge.fury.io/js/ngx-cxl-popover.svg)](https://badge.fury.io/js/ngx-cxl-popover)
 
 The best popover package because it's easy to use and customizable .
 
