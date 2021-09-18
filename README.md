@@ -14,7 +14,15 @@ You can use either the npm command-line tool to install packages.
 > npm i ngx-cxl-popover
 
 # Usage ⁉
-
+```typescript
+@NgModule({
+  imports: [
+   /* .... */
+   NgxCxlPopoverModule
+   /* .... */
+  ],
+})
+```
 - add directive `NgxCxlPopover` on the element.
 - write your awesome title `popoverTitle`.
 - write your awesome content `popoverContent`.
