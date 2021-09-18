@@ -14,6 +14,7 @@ You can use either the npm command-line tool to install packages.
 > npm i ngx-cxl-popover
 
 # Usage ⁉
+- import `NgxCxlPopoverModule` module
 ```typescript
 @NgModule({
   imports: [
