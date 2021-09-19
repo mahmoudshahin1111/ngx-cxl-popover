@@ -1,0 +1,36 @@
+<h1 ngxCxlPopover popoverTitle="title" popoverContent="any thing else" [titleTemplate]="temp1"
+  [contentTemplate]="temp2">
+  <ng-template #temp1>
+    <p>custom template</p>
+  </ng-template>
+
+  <ng-template #temp2>
+    <img style="width: 100%;"
+      src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80">
+  </ng-template>
+  Hello
+</h1>
+
+<h1 ngxCxlPopover popoverTitle="title" [placementHorizontal]="'right'" [placementVertical]="'top'"
+  popoverContent="any thing else" [titleTemplate]="temp1" [contentTemplate]="temp2">
+
+  Hello 2
+</h1>
+
+<ng-template #temp1>
+  <p>custom template</p>
+</ng-template>
+<div style="height: 1000px;"></div>
+<ng-template #temp2>
+  <img style="width: 100%;"
+    src="https://images.unsplash.com/photo-1503023345310-bd7c1de61c7d?ixid=MnwxMjA3fDB8MHxzZWFyY2h8Mnx8aHVtYW58ZW58MHx8MHx8&ixlib=rb-1.2.1&w=1000&q=80">
+</ng-template>
+
+
+<h2 ngxCxlPopover popoverTitle="title" popoverContent="any thing else" [titleTemplate]="temp1" [contentTemplate]="temp2"
+  style="position: fixed;bottom: 0px;">
+  botom
+</h2>
+
+
+<h1 ngxCxlPopover popoverTitle="title" popoverContent="any thing else"> Hello </h1> 
