@@ -9,7 +9,7 @@ import { NgxCxlPopoverModule } from './ngx-cxl-popover.module';
 
 @Component({
   template: `
-    <h1 NgxCxlPopover popoverTitle="test" popoverContent="test">Test</h1>
+    <h1 ngxCxlPopover popoverTitle="test" popoverContent="test">Test</h1>
     `
 })
 class HostComponent { }
