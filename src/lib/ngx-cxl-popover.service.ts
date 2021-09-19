@@ -11,7 +11,6 @@ export class NgxCxlPopoverService {
   private _onTriggered: Observable<ITriggerEvent> =
     this._triggered$.asObservable();
   constructor(private componentFactoryResolver:ComponentFactoryResolver) {
-    console.log(this.componentFactoryResolver);
     
   }
   trigger(e: ITriggerEvent) {
