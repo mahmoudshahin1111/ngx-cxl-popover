@@ -11,5 +11,8 @@ jobs:
       - uses: actions/setup-node@v2
         with:
           node-version: '14'
+      - name: npm dependencies
       - run: npm install
+      - name: 'run testing script'
+      - run: npm ci
       - run: npm run test:ci
