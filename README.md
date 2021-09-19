@@ -24,12 +24,12 @@ You can use either the npm command-line tool to install packages.
   ],
 })
 ```
-- add directive `NgxCxlPopover` on the element.
+- add directive `ngxCxlPopover` on the element.
 - write your awesome title `popoverTitle`.
 - write your awesome content `popoverContent`.
 
 ```html
-<h1 NgxCxlPopover popoverTitle="Hello" popoverContent="👋">Hello</h1>
+<h1 ngxCxlPopover popoverTitle="Hello" popoverContent="👋">Hello</h1>
 ```
 
 if you want use customized templates for the title and content then let's go to the next level 👍
@@ -40,7 +40,7 @@ if you want use customized templates for the title and content then let's go to 
 
 ```html
 <h1
-  NgxCxlPopover
+  ngxCxlPopover
   popoverTitle="Hello"
   popoverContent="👋"
   [titleTemplate]="titleTemplate"

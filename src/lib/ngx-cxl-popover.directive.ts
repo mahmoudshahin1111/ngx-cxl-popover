@@ -14,7 +14,7 @@ import {
 import { NgxCxlPopoverContainerComponent } from './ngx-cxl-popover-container/ngx-cxl-popover-container.component';
 
 @Directive({
-  selector: '[NgxCxlPopover]',
+  selector: '[ngxCxlPopover]',
 })
 export class NgxCxlPopoverDirective implements OnInit {
   @Input() enableScroll: boolean;
