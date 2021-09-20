@@ -2,7 +2,7 @@
 
 
 [![npm version](https://badge.fury.io/js/ngx-cxl-popover.svg)](https://badge.fury.io/js/ngx-cxl-popover)
-![example workflow](https://github.com/mahmoudshahin1111/ngx-cxl-popover/actions/workflows/.github/workflows/main.yml/badge.svg)
+![Testing](https://github.com/mahmoudshahin1111/ngx-cxl-popover/actions/workflows/.github/workflows/main.yml/badge.svg)
 
 The best popover package because it's easy to use and customizable .
 
