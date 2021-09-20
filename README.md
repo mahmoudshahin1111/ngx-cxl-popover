@@ -1,9 +1,8 @@
-
 # NgxCxlPopover
 
 
 [![npm version](https://badge.fury.io/js/ngx-cxl-popover.svg)](https://badge.fury.io/js/ngx-cxl-popover)
-![Testing](https://github.com/mahmoudshahin1111/ngx-cxl-popover/actions/workflows/.github/workflows/main.yml/badge.svg)
+![circleci](https://github.com/mahmoudshahin1111/ngx-cxl-popover/actions/workflows/.github/workflows/main.yml/badge.svg)
 
 The best popover package because it's easy to use and customizable .
 
@@ -41,7 +40,7 @@ if you want use customized templates for the title and content then let's go to 
 ## Custom Templates
 
 ```html
-<h1 
+<h1
   ngxCxlPopover
   popoverTitle="Hello"
   popoverContent="👋"
