@@ -8,9 +8,26 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "test:ci":"ng test ngx-cxl-popover --no-watch --browsers=Headless  "
+    "test:ci": "jest --detectOpenHandles"
   },
   "private": true,
+  "jest": {
+    "preset": "jest-preset-angular",
+    "setupFilesAfterEnv": [
+      "<rootDir>/projects/ngx-cxl-popover/setup-jest.ts"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/projects/ngx-cxl-popover/node_modules/",
+      "<rootDir>/dist/",
+      "<rootDir>/src/"
+    ],
+    "globals": {
+      "ts-jest": {
+        "tsconfig": "<rootDir>/projects/ngx-cxl-popover/tsconfig.spec.json",
+        "stringifyContentPathRegex": "\\.html$"
+      }
+    }
+  },
   "dependencies": {
     "@angular/animations": "~12.1.2",
     "@angular/common": "~12.1.2",
@@ -30,8 +47,11 @@
     "@angular/cli": "~12.1.2",
     "@angular/compiler-cli": "~12.1.2",
     "@types/jasmine": "~3.8.0",
+    "@types/jest": "^27.0.2",
     "@types/node": "^12.11.1",
     "jasmine-core": "~3.8.0",
+    "jest": "^27.2.1",
+    "jest-preset-angular": "^10.0.0",
     "karma": "~6.3.0",
     "karma-chrome-launcher": "~3.1.0",
     "karma-coverage": "~2.0.3",

@@ -129,15 +129,8 @@
             }
           },
           "defaultConfiguration": "production"
-        },
-        "test": {
-          "builder": "@angular-devkit/build-angular:karma",
-          "options": {
-            "main": "projects/ngx-cxl-popover/src/test.ts",
-            "tsConfig": "projects/ngx-cxl-popover/tsconfig.spec.json",
-            "karmaConfig": "projects/ngx-cxl-popover/karma.conf.js"
-          }
         }
+       
       }
     }
   },
