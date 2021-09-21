@@ -8,7 +8,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: ngx-cxl-popover
+        working-directory: ./
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v2
