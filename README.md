@@ -1,27 +1,100 @@
-# NgxClxPopover
+# NgxCxlPopover
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 12.1.2.
 
-## Development server
+[![npm version](https://badge.fury.io/js/ngx-cxl-popover.svg)](https://badge.fury.io/js/ngx-cxl-popover)
+![example workflow](https://github.com/mahmoudshahin1111/ngx-cxl-popover/actions/workflows/.github/workflows/main.yml/badge.svg)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+The best popover package because it's easy to use and customizable .
 
-## Code scaffolding
+## Installation
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+You can use either the npm command-line tool to install packages.
 
-## Build
+## NPM
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+> npm i ngx-cxl-popover
 
-## Running unit tests
+# Usage ⁉
+- import `NgxCxlPopoverModule` module
+```typescript
+@NgModule({
+  imports: [
+   /* .... */
+   NgxCxlPopoverModule
+   /* .... */
+  ],
+})
+```
+- add directive `ngxCxlPopover` on the element.
+- write your awesome title `popoverTitle`.
+- write your awesome content `popoverContent`.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+```html
+<h1 ngxCxlPopover popoverTitle="Hello" popoverContent="👋">Hello</h1>
+```
 
-## Running end-to-end tests
+if you want use customized templates for the title and content then let's go to the next level 👍
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+# Advanced
 
-## Further help
+## Custom Templates
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+```html
+<h1
+  ngxCxlPopover
+  popoverTitle="Hello"
+  popoverContent="👋"
+  [titleTemplate]="titleTemplate"
+  [contentTemplate]="contentTemplate"
+>
+  Hello
+</h1>
+
+<!-- Custom Templates -->
+<ng-template #titleTemplate>
+  <img src="..." alt="..." />
+  <p>...</p>
+</ng-template>
+
+<ng-template #contentTemplate>
+  <img src="..." alt="..." />
+  <p>...</p>
+</ng-template>
+<!--  -->
+```
+
+## Options
+
+| Attribute | Type | Description | Default |
+| ---------------------- | -------------:| --------------------------------------------------:| -------:|
+| `enableScroll` | boolean | enable scrolling into popover content | `true` |
+| `scrollSpeed` | number | the speed of scrolling between 10 and 100 | 10 |
+| `width` | number | set popover fixed width | 200px |
+| `height` | number | set popover fixed height | 300px |
+| `popoverTitle` | string | write the title phase | null |
+| `popoverContent` | string | write the content phase | null |
+| `titleTemplate` | TemplateRef | reference to the custom title template | null |
+| `contentTemplate` | TemplateRef | reference to the custom content template | null |
+| `placementHorizontal` | number | force popover to show in specific direction and has options 'right' , 'left' , null | null |
+| `placementVertical` | number | force popover to show in specific direction and has options 'top' , 'bottom' , null; | null |
+
+## Customize Style
+
+```css
+.ngx-cxl-popover-container {
+}
+.ngx-cxl-popover-container .ngx-cxl-popover-title {
+}
+.ngx-cxl-popover-container .ngx-cxl-popover-content {
+}
+```
+
+Simplest and Easiest 👌💖👏
+
+## Contribution
+
+I welcome you to fork and add more features into it. If you have any bugs or feature request, please create an issue at [github repository](https://github.com/mahmoudshahin1111/ngx-cxl-popover/issues).
+
+## License
+
+MIT
