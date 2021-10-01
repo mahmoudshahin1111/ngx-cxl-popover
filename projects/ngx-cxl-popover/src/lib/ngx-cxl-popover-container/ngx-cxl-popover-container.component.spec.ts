@@ -1,6 +1,8 @@
 import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
+import { BrowserAnimationsModule, NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { BrowserTestingModule } from '@angular/platform-browser/testing';
 
 import { NgxCxlPopoverContainerComponent } from './ngx-cxl-popover-container.component';
 
@@ -11,6 +13,7 @@ describe('NgxCxlPopoverContainerComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
+      imports:[BrowserTestingModule,NoopAnimationsModule],
       declarations: [ NgxCxlPopoverContainerComponent]
     })
     .compileComponents();

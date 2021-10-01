@@ -1,16 +1,14 @@
-import { CommonModule } from '@angular/common';
-import { Component, DebugElement, Inject } from '@angular/core';
+import { Component, DebugElement } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
 import { BrowserTestingModule } from '@angular/platform-browser/testing';
 import { NgxCxlPopoverContainerComponent } from './ngx-cxl-popover-container/ngx-cxl-popover-container.component';
 import { NgxCxlPopoverDirective } from './ngx-cxl-popover.directive';
-import { NgxCxlPopoverModule } from './ngx-cxl-popover.module';
 
 @Component({
   template: `
-    <h1 ngxCxlPopover popoverTitle="test" popoverContent="test">Test</h1>
+    <h1 ngxCxlPopover popoverTitle="test" popoverContent="test" >Test</h1>
     `
 })
 class HostComponent { }
@@ -41,14 +39,21 @@ describe('NgxCxlPopoverDirective', () => {
     const elementsHasDirective = hostComponent.debugElement.queryAll(By.directive(NgxCxlPopoverDirective));
     expect(elementsHasDirective.length > 0).toBeTruthy();
   });
-  it("PopoverContainer display when mouse entered and hidden when mouse leaved", () => {
+  it("popoverContainer display when mouse entered and hidden when mouse leaved",() => {
     const debugElement: DebugElement = hostComponent.debugElement.query(By.directive(NgxCxlPopoverDirective));
     debugElement.nativeElement.dispatchEvent(new MouseEvent('mouseenter'));
     let popoverComponentDebugElement: DebugElement = hostComponent.debugElement.query(By.directive(NgxCxlPopoverContainerComponent));
     expect(popoverComponentDebugElement).toBeDefined();
     debugElement.nativeElement.dispatchEvent(new MouseEvent('mouseleave'));
-    popoverComponentDebugElement = hostComponent.debugElement.query(By.directive(NgxCxlPopoverContainerComponent));
-    expect(popoverComponentDebugElement).toBeNull();
+    return new Promise(res=>{
+      setTimeout(() => {
+        popoverComponentDebugElement = hostComponent.debugElement.query(By.directive(NgxCxlPopoverContainerComponent));
+        expect(popoverComponentDebugElement).toBeNull();
+        res(true);
+      },popoverComponentDebugElement.componentInstance.animationDelay);
+    })
+   
+   
   });
   it("title and content appeared correctly in the component", () => {
     const debugElement: DebugElement = hostComponent.debugElement.query(By.directive(NgxCxlPopoverDirective));
