@@ -1,20 +1,25 @@
-<div [@openClose]="{value:opened?'open':'closed',params:{animationDelay:animationDelay+'ms'}}" class="ngx-cxl-popover-container" [ngStyle]="getCustomizedStyle()">
-    <div class="ngx-cxl-popover-title">
-        <ng-container *ngIf="titleTemplate else defaultTitleTemplate">
-            <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
-
-        </ng-container>
-        <ng-template #defaultTitleTemplate>
-            {{title}}
-        </ng-template>
-
-    </div>
-    <div #contentTemp class="ngx-cxl-popover-content">
-        <ng-container *ngIf="contentTemplate else defaultContentTemplate">
-            <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
-        </ng-container>
-        <ng-template #defaultContentTemplate>
-            {{content}}
-        </ng-template>
-    </div>
+<div
+  [@openClose]="{
+    value: opened ? 'open' : 'closed',
+    params: { animationDelay: (this.animation ? animationDelay : 0) + 'ms' }
+  }"
+  class="ngx-cxl-popover-container"
+  [ngStyle]="getCustomizedStyle()"
+>
+  <div class="ngx-cxl-popover-title">
+    <ng-container *ngIf="titleTemplate; else defaultTitleTemplate">
+      <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
+    </ng-container>
+    <ng-template #defaultTitleTemplate>
+      {{ title }}
+    </ng-template>
+  </div>
+  <div #contentTemp class="ngx-cxl-popover-content">
+    <ng-container *ngIf="contentTemplate; else defaultContentTemplate">
+      <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </ng-container>
+    <ng-template #defaultContentTemplate>
+      {{ content }}
+    </ng-template>
+  </div>
 </div>
