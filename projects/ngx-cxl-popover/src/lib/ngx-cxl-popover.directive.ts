@@ -10,6 +10,7 @@ import {
   TemplateRef,
   ViewContainerRef,
 } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 import { NgxCxlPopoverContainerComponent } from './ngx-cxl-popover-container/ngx-cxl-popover-container.component';
 
@@ -27,13 +28,16 @@ export class NgxCxlPopoverDirective implements OnInit {
   @Input() contentTemplate: TemplateRef<any> | null;
   @Input() placementHorizontal: 'right' | 'left' | null;
   @Input() placementVertical: 'top' | 'bottom' | null;
+  @Input() animation:boolean;
+  @Input() animationDelay:number;
   private _popoverComponentFactory: ComponentFactory<NgxCxlPopoverContainerComponent>;
   private _popoverComponentRef: ComponentRef<NgxCxlPopoverContainerComponent> | null;
   private _additionalDistance: number;
   private _isPopupCreated: boolean;
   private _documentBodyOverflowY: string;
+  private _componentOpenedSubscription: Subscription | undefined;
+  private _componentClosedSubscription: Subscription | undefined;
   constructor(
-    private elementRef: ElementRef,
     private viewContainerRef: ViewContainerRef,
     private componentFactoryResolver: ComponentFactoryResolver
   ) {
@@ -55,8 +59,10 @@ export class NgxCxlPopoverDirective implements OnInit {
       this.componentFactoryResolver.resolveComponentFactory(
         NgxCxlPopoverContainerComponent
       );
+    this.animation = true;
+    this.animationDelay = 100;
   }
-  ngOnInit(): void {}
+  ngOnInit(): void { }
   @HostListener('wheel', ['$event'])
   handleScroll(e: WheelEvent) {
     if (
@@ -120,8 +126,14 @@ export class NgxCxlPopoverDirective implements OnInit {
     this._popoverComponentRef.instance.content = this.popoverContent;
     this._popoverComponentRef.instance.titleTemplate = this.titleTemplate;
     this._popoverComponentRef.instance.contentTemplate = this.contentTemplate;
+    this._popoverComponentRef.instance.animation = this.animation;
+    this._popoverComponentRef.instance.animationDelay = this.animationDelay;
+    if (this._componentOpenedSubscription) {
+      this._componentOpenedSubscription.unsubscribe();
+    }
+    this._componentOpenedSubscription = this._popoverComponentRef.instance.open().subscribe();
     this._popoverComponentRef.instance.disableScroll();
-    if(this.enableScroll){
+    if (this.enableScroll) {
       this._popoverComponentRef.instance.enableScroll();
     }
   }
@@ -149,9 +161,8 @@ export class NgxCxlPopoverDirective implements OnInit {
     if (!this._popoverComponentRef) return;
     const nativeElement: HTMLElement =
       this._popoverComponentRef.location.nativeElement;
-    nativeElement.style.top = `${
-      startX - nativeElement.offsetHeight - this._additionalDistance
-    }px`;
+    nativeElement.style.top = `${startX - nativeElement.offsetHeight - this._additionalDistance
+      }px`;
   }
 
   private disableBodyScroll() {
@@ -163,9 +174,15 @@ export class NgxCxlPopoverDirective implements OnInit {
 
   private destroyPopup() {
     if (!this._popoverComponentRef) return;
-    this._popoverComponentRef.destroy();
-    this._popoverComponentRef = null;
-    this._isPopupCreated = false;
+    if (this._componentClosedSubscription) {
+      this._componentClosedSubscription.unsubscribe();
+    }
+    this._componentClosedSubscription = this._popoverComponentRef.instance.close().subscribe(() => {
+      this._popoverComponentRef ? this._popoverComponentRef.destroy() : null;
+      this._popoverComponentRef = null;
+      this._isPopupCreated = false;
+    })
+
   }
   private isCanBeOnTheRight(mouseX: number) {
     if (!this._popoverComponentRef) return;
