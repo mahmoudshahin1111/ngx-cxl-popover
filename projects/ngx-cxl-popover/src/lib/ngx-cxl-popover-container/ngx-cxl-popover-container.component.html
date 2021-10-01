@@ -1,4 +1,4 @@
-<div class="ngx-cxl-popover-container" [ngStyle]="getCustomizedStyle()">
+<div [@openClose]="{value:opened?'open':'closed',params:{animationDelay:animationDelay+'ms'}}" class="ngx-cxl-popover-container" [ngStyle]="getCustomizedStyle()">
     <div class="ngx-cxl-popover-title">
         <ng-container *ngIf="titleTemplate else defaultTitleTemplate">
             <ng-container *ngTemplateOutlet="titleTemplate"></ng-container>
